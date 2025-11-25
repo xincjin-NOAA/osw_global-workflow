@@ -54,6 +54,7 @@ optconv=${optconv:-0.06}
 AIRS_CADS=${AIRS_CADS:-".false."}
 IASI_CADS=${IASI_CADS:-".false."}
 CRIS_CADS=${CRIS_CADS:-".false."}
+GNSSR_OSW=${GNSSR_OSW:-".false."}
 
 # Diagnostic files options
 netcdf_diag=${netcdf_diag:-".true."}
@@ -146,6 +147,7 @@ B1AVHPM=${B1AVHPM:-${COMIN_OBS}/${OPREFIX}avcspm.tm00.bufr_d${OSUFFIX}}
 HDOB=${HDOB:-${COMIN_OBS}/${OPREFIX}hdob.tm00.bufr_d${OSUFFIX}}
 SAILDRONE=${SAILDRONE:-${COMIN_OBS}/${OPREFIX}saldrn.tm00.bufr_d${OSUFFIX}}
 GSBBF=${GSBBF:-${COMIN_OBS}/${OPREFIX}gsbprf.tm00.bufr_d${OSUFFIX}}
+GNSSRBF=""
 
 # Guess files
 GPREFIX=${GPREFIX:-""}
@@ -501,6 +503,10 @@ if [[ "${DONST}" == "YES" ]]; then
     ${NLN} "${NSSTBF}" nsstbufr
 fi
 
+if [["${GNSSR_OSW}" == ".true." ]]; then
+    ${NLN} "${GNSSRBF}" gnssrwndbufr
+fi
+
 ##############################################################
 # Required bias guess files
 ${NLN} ${GBIAS}    satbias_in
@@ -823,6 +829,7 @@ OBS_INPUT::
    hdobbufr       uv          null        uv                  0.0     0     0
    prepbufr       spd         null        spd                 0.0     0     0
    hdobbufr       spd         null        spd                 0.0     0     0
+   gnssrwndbufr   gnssrspd    null        gnssrspd            0.0     1     0   
    prepbufr       dw          null        dw                  0.0     0     0
    radarbufr      rw          null        rw                  0.0     0     0
    nsstbufr       sst         nsst        sst                 0.0     0     0
