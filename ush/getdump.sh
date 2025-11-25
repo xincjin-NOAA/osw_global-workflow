@@ -6,6 +6,7 @@ YMD=${1:-""}
 HH=${2:-""}
 RUN=${3:-""}
 SOURCE_DIR=${4:-${DMPDIR}/${RUN}${DUMP_SUFFIX}.${YMD}/${HH}/${COMPONENT}}
+OSW_SOURCE_DIR=/lfs/h2/emc/da/noscrub/xin.c.jin/my_data/spire/${YMD}
 TARGET_DIR=${5:-${ROTDIR}/${RUN}.${YMD}/${HH}/${COMPONENT}}
 
 DUMP_SUFFIX=${DUMP_SUFFIX:-""}
@@ -30,6 +31,8 @@ if [[ -s "${prefix}updated.status.tm00.bufr_d" ]]; then
     for file in $(ls ${prefix}*); do
 	${NLN} "${SOURCE_DIR}/${file}" "${TARGET_DIR}/${file}"
     done
+    osw_file=".t${HH}z.spirewnd.tm00.bufr_d"
+    ${NLN} "${OSW_SOURCE_DIR}/gfs${osw_file}" "${TARGET_DIR}/${RUN}${osw_file}"
 else
     echo "***ERROR*** ${prefix}updated.status.tm00.bufr_d NOT FOUND in ${SOURCE_DIR}"
     exit 99
