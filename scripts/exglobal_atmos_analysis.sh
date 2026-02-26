@@ -54,7 +54,7 @@ optconv=${optconv:-0.06}
 AIRS_CADS=${AIRS_CADS:-".false."}
 IASI_CADS=${IASI_CADS:-".false."}
 CRIS_CADS=${CRIS_CADS:-".false."}
-GNSSR_OSW=${GNSSR_OSW:-".false."}
+GNSSR_OSW=${GNSSR_OSW:-"NO"}
 
 # Diagnostic files options
 netcdf_diag=${netcdf_diag:-".true."}
@@ -84,6 +84,7 @@ export hofx_2m_sfcfile=${hofx_2m_sfcfile:-".false."}
 
 # Observations
 OPREFIX=${OPREFIX:-""}
+OPREFIX_GNSSR=${OPREFIX_GNSSR:-""}
 OSUFFIX=${OSUFFIX:-""}
 PREPQC=${PREPQC:-${COMIN_OBS}/${OPREFIX}prepbufr${OSUFFIX}}
 PREPQCPF=${PREPQCPF:-${COMIN_OBS}/${OPREFIX}prepbufr.acft_profiles${OSUFFIX}}
@@ -147,7 +148,7 @@ B1AVHPM=${B1AVHPM:-${COMIN_OBS}/${OPREFIX}avcspm.tm00.bufr_d${OSUFFIX}}
 HDOB=${HDOB:-${COMIN_OBS}/${OPREFIX}hdob.tm00.bufr_d${OSUFFIX}}
 SAILDRONE=${SAILDRONE:-${COMIN_OBS}/${OPREFIX}saldrn.tm00.bufr_d${OSUFFIX}}
 GSBBF=${GSBBF:-${COMIN_OBS}/${OPREFIX}gsbprf.tm00.bufr_d${OSUFFIX}}
-GNSSRBF=${GNSSRBF:-${COMIN_OBS}/${OPREFIX}spirewnd.tm00.bufr_d${OSUFFIX}}
+GNSSRBF=${GNSSRBF:-${GNSSR_OBS}/${OPREFIX_GNSSR}spirewnd.tm00.bufr_d${OSUFFIX}}
 
 # Guess files
 GPREFIX=${GPREFIX:-""}
@@ -503,7 +504,7 @@ if [[ "${DONST}" == "YES" ]]; then
     ${NLN} "${NSSTBF}" nsstbufr
 fi
 
-if [["${GNSSR_OSW}" == ".true." ]]; then
+if [[ "${GNSSR_OSW}" == "YES" ]]; then
     ${NLN} "${GNSSRBF}" gnssrwndbufr
 fi
 
